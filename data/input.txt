@@ -1,0 +1,194 @@
+The Project Gutenberg eBook of The slide rule
+This eBook is for the use of anyone anywhere in the United States and most other parts of the world at no cost and with almost no restrictions whatsoever. You may copy it, give it away or re-use it under the terms of the Project Gutenberg License included with this eBook or online at www.gutenberg.org. If you are not located in the United States, you will have to check the laws of the country where you are located before using this eBook.
+Title: The slide rule
+
+a practical manual
+
+Author: Charles N. Pickworth
+
+
+Release date: April 18, 2025 [eBook #75904]
+
+Language: English
+
+Original publication: New York: D. Van Nostrand Co., 1917
+
+Other information and formats: www.gutenberg.org/ebooks/75904
+
+Credits: Richard Tonsing and the Online Distributed Proofreading Team at https://www.pgdp.net (This file was produced from images generously made available by The Internet Archive)
+
+*** START OF THE PROJECT GUTENBERG EBOOK THE SLIDE RULE ***
+THE
+SLIDE RULE:
+A PRACTICAL MANUAL
+BY
+CHARLES N. PICKWORTH
+WHITWORTH SCHOLAR; EDITOR OF “THE MECHANICAL WORLD”; AUTHOR OF “LOGARITHMS FOR BEGINNERS”; “THE INDICATOR: ITS CONSTRUCTION AND APPLICATION”; “THE INDICATOR DIAGRAM: ITS ANALYSIS AND CALCULATION,” ETC.
+SEVENTEENTH EDITION
+Manchester:
+Emmott and Co., Limited,
+65 King Street;
+New York:
+D. Van Nostrand Co.,
+8 Warren Street.
+London:
+Emmott and Co., Limited,
+20 Bedford Street, W.C.
+and
+Pitman and Sons, Limited,
+Parker St., Kingsway, W.C. 2.
+[Three Shillings and Sixpence net]
+All rights reserved.
+PREFACE TO THE FIFTEENTH EDITION.
+Several new slide rules for special calculations are described in this edition, and the contents further extended to include a section dealing with screw-cutting gear calculations by the slide rule—an application of the instrument to which attention has been given recently.
+
+Mention should be made of the fact that some of the special slide rules described in previous editions are no longer obtainable. As, however, the descriptive notes may be of service to those possessing the instruments, and are, in some measure, of general interest, they have been allowed to remain in the present issue.
+
+The author tenders his thanks to the many who have evinced their appreciation of his efforts to popularise the subject; also for the many kind hints and suggestions which he has received from time to time, and with a continuance of which he trusts to be favoured in the future.
+
+C. N. P.
+Withington, Manchester, November 1917.
+
+PREFACE TO THE SEVENTEENTH EDITION.
+The sustained demand for this very successful work having resulted in the early call for a new edition, the opportunity has been taken to introduce descriptions of new slide rules and to effect some slight revisions.
+
+C. N. P.
+Withington, Manchester, December 1920.
+
+CONTENTS.
+ 	PAGE
+Introductory	5
+The Mathematical Principle of the Slide Rule	6
+Notation by Powers of 10	8
+The Mechanical Principle of the Slide Rule	9
+The Primitive Slide Rule	10
+The Modern Slide Rule	12
+The Notation of the Slide Rule	14
+The Cursor or Runner	17
+Multiplication	19
+Division	24
+The Use of the Upper Scales for Multiplication and Division	26
+Reciprocals	27
+Continued Multiplication and Division	28
+Multiplication and Division with the Slide Inverted	30
+Proportion	31
+General Hints on the Elementary Uses of the Slide Rule	36
+Squares and Square Roots	37
+Cubes and Cube Roots	40
+Miscellaneous Powers and Roots	45
+Power and Roots by Logarithms	45
+Other Methods of Obtaining Powers and Roots	47
+Combined Operations	49
+Hints on Evaluating Expressions	52
+Gauge Points	53
+Examples in Technical Calculations	56
+Trigonometrical Application	74
+Slide Rules with Log-log Scales	84
+Special Types of Slide Rules	92
+Long-Scale Slide Rules	96
+Circular Calculators	101
+Slide Rules for Special Calculations	109
+Construction Improvements in Slide Rules	110
+The Accuracy of Slide Rule Results	111
+Appendix:—	 
+ 	New Slide Rules	113
+ 	The Solution of Algebraic Equations	122
+ 	Screw-Cutting Gear Calculations	124
+ 	Gauge Points and Signs on Slide Rules	126
+ 	Tables and Data	128
+ 	Slide Rule Data Slips	133
+THE SLIDE RULE.
+5
+INTRODUCTORY.
+The slide rule may be defined as an instrument for mechanically effecting calculations by logarithms. Those familiar with logarithms and their use will recognise that the slide rule provides what is in effect a concisely arranged table of logarithms, together with a simple and convenient means for adding and subtracting any selected values. Those, however, who have no acquaintance with logarithms will find that only an elementary knowledge of the subject is necessary to enable them to make full use of the slide rule. It is true that for simple slide-rule operations, as multiplication and division, a knowledge of logarithms is unnecessary; indeed, many who have no conscious understanding of logarithms make good use of the instrument. But this involves a blind reliance upon rules without an appreciation of their origin or limitations, and this, in turn, engenders a want of confidence in the results of any but the simplest operations, and prevents the fullest use being made of the instrument. For this reason a brief, but probably sufficient résumé of the principles of logarithmic calculation will be given. Those desiring a more detailed explanation are referred to the writer’s “Logarithms for Beginners.”
+
+The slide rule enables various arithmetical, algebraical and trigonometrical processes to be performed with ease and rapidity, and with sufficient accuracy for most practical purposes. A grasp of the simple fundamental principles which underlie its operation, together with a little patient practice, are all that are necessary to acquire facility in using the instrument, and few who have become proficient in this system of calculating would willingly revert to the laborious arithmetical processes.
+
+6
+THE MATHEMATICAL PRINCIPLE OF THE SLIDE RULE.
+Logarithms may be defined as a series of numbers in arithmetical progression, as 0, 1, 2, 3, 4, etc., which bear a definite relationship to another series of numbers in geometrical progression, as 1, 2, 4, 8, 16, etc. A more precise definition is:—The logarithm of a number to any base, is the index of the power to which the base must be raised to equal the given number. In the logarithms in general use, known as common logarithms, and with which we are alone concerned, 10 is the base selected. The general definition may therefore be stated in the following modified form:—The common logarithm of a number is the index of the power to which 10 must be raised to equal the given number. Applying this rule to a simple case, as 100 = 102, we see that the base 10 must be squared (i.e., raised to the 2nd power) in order to equal 100, the number selected. Therefore, as 2 is the index of the power to which 10 must be raised to equal 100, it follows from our definition that 2 is the common logarithm of 100. Similarly the common logarithm of 1000 will be 3, while proceeding in the opposite direction the common log. of 10 must equal 1. Tabulating these results and extending, we have:—
+
+Numbers	10,000	1000	100	10	1
+Logarithms	4	3	2	1	0
+It will now be evident that for numbers
+
+between	1	and	10	the logs. will be between	0	and	1
+„	10	„	100	„          „	1	„	2
+„	100	„	1000	„          „	2	„	3
+„	1000	„	10,000	„          „	3	„	4
+In other words, the logarithms of numbers between 1 and 10 will be wholly fractional (i.e., decimal); the logs. of numbers between 10 and 100 will be 1 followed by a decimal quantity; the logs. of numbers between 100 and 1000 will be 2 followed by a decimal quantity, and so on. These decimal quantities for numbers from 1 to 10 (which are the logarithms of this particular series) are as follows:—
+
+Numbers	1	2	3	4	5	6	7	8	9	10
+Logarithms	0	0·301	0·477	0·602	0·699	0·778	0·845	0·903	0·954	1·000
+7Combining the two tables, we can complete the logarithms. Thus for 3 multiplied successively by 10, we have:—
+
+Numbers	3	30	300	3000	30,000	etc.
+Logarithms	0·477	1·477	2·477	3·477	4·477
+We see from this that for numbers having the same significant figure (or figures), 3 in this case, the decimal part or mantissa of the logarithm is the same, but that the integral part or characteristic is always one less than the number of figures before the decimal point.
+
+For numbers less than 1 the same plan is followed. Thus extending our first table downwards, we have:—
+
+Numbers	1	0·1	0·01	0·001	0·0001	etc.
+Logarithms	0	−1	−2	−3	−4
+so that for 3 divided successively by 10, we have:—
+
+Numbers	3	0·3	0·03	0·003	0·0003	etc.
+Logarithms	0·477	̅1·477	̅2·477	̅3·477	̅4·477
+Here again we see that with the same significant figures in the numbers, the mantissa of the logarithm has always the same (positive) value, but the characteristic is one more than the number of 0’s immediately following the decimal point, and is negative, as indicated by the minus sign written over it. Only the decimal parts of the logarithms of numbers between 1 and 10 are given in the usual tables, for, as shown above, the logarithms of all tenfold multiples or submultiples of a number can be obtained at once by modifying the characteristic in accordance with the rules given.
+
+An examination of the two rows of figures giving the logarithms of numbers from 1 to 10 will reveal some striking peculiarities, and at the same time serve to illustrate the principle of logarithmic calculation. First, it will be noticed that the addition of any two of the logarithms gives the logarithm of the product of these two numbers. Thus, the addition of log. 2 and log. 4 = 0·301 + 0·602 = 0·903, and this is seen to be the logarithm of 8, that is, of 2 × 4. Conversely, the difference of the logarithms of two numbers gives the logarithm of the quotient resulting from the division of these two numbers. Thus, log. 8 − log. 2 = 0·903 − 0·301 = 0·602, which is the log. of 4, or of 8 ÷ 2.
+
+8One other important point is to be noted. If the logarithm of any number is multiplied by 2, 3, or any other quantity, whole or fractional, the result is the logarithm of the original number, raised to the 2nd, 3rd, or other power respectively. Thus, multiplying the log. of 3 by 2, we obtain 0·477 × 2 = 0·954, and this is seen to be the log. of 9, that is, of 3 raised to the 2nd power, or 3 squared. Again, log. 2 multiplied by 3 = 0·903—that is, the log. of 8, or of 2 raised to the 3rd power, or 2 cubed. Conversely, dividing the logarithm of any original number by any number n, we obtain the logarithm of the nth root of the original number. Thus, log. 8 ÷ 3 = 0·903 ÷ 3 = 0·301, and is therefore equal to log. 2 or to the log. of the cube root of 8.
+
+Only simple logs. have been taken in these examples, but the student will understand that the same reasoning applies, whatever the number. Thus for 203 we prefix the characteristic (1 in this case) to log. 2, giving 1·301. Multiplying by 3, we have 3·903 as the resulting logarithm, and as its characteristic is 3, we know that it corresponds to the number 8000. Hence 203 = 8000.
+
+In this brief explanation is included all that need now be said with regard to the properties of logarithms. The main facts to be borne clearly in mind are:—(1.) That to find the product of two numbers, the logarithms of the numbers are to be added together, the result being the logarithm of the product required, the value of which can then be determined. (2.) That in finding the quotient resulting from the division of one number by another, the difference of the logarithms of the numbers gives the logarithm of the quotient, from which the value of the latter can be ascertained. (3.) That to find the result of raising a number to the nth power, we multiply the logarithm of the number by n, thus obtaining the logarithm, and hence the value, of the desired result. And (4.) That to find the nth root of a number, we divide the logarithm of the number by n, this giving the logarithm of the result, from which its value may be determined.
+
+NOTATION BY POWERS OF 10.
+A convenient method of representing an arithmetical quantity is to split it up into two factors, of which the first is the original number, with the decimal point moved so as to immediately follow the first significant figure, and the second, 10n where n is the 9number of places the decimal point has been moved, this index being positive for numbers greater than 1, and negative for numbers less than 1.[1] In this system, therefore, we regard 3,610,000 as 3·61 × 1,000,000, and write it as 3·61 × 106. Similarly 361 = 3·61 x 102; 0·0361 (= 3·61
+100) = 3·61 × 10−2; 0·0000361 = 3·61 × 10−5, etc. To restore a number to its original form, we have only to move the decimal point through the number of places indicated by the index, moving to the right if the index is positive and to the left (prefixing 0’s) if negative. This method, which should be cultivated for ordinary arithmetical work, is substantially that followed in calculating by the slide rule. Thus with the slide rule the multiplication of 63,200 by 0·0035 virtually resolves itself into 6·32 × 104 × 3·5 × 10−3 or 6·32 × 3·5 × 104–3 = 22·12 x 101 = 221·2. It will be seen later, however, that the result can be arrived at by a more direct, if less systematic, method of working.
+
+THE MECHANICAL PRINCIPLE OF THE SLIDE RULE.
+
+Fig. 1.
+
+The mechanical principle involved in the slide rule is of a very simple character. In Fig. 1, A and B represent two rules divided into 10 equal parts, the division lines being numbered consecutively as shown. If the rule B is moved to the right until 0 on B is opposite 3 on A, it is seen that any number on A is equal to the coinciding number on B, plus 3. Thus opposite 4 on B is 7 on A. The reason is obvious. By moving B to the right, we add to a length 0·3, another length 0·4, the result read off on A being 7. Evidently, the same result would have been obtained if a length 0·4 had been added, by means of a pair of dividers, to the length 0·3 on the scale A. By means of the slide B, however, the addition is more readily effected, and, what is of much greater importance, 10the result of adding 3 to any one of the numbers within range, on the lower scale, is immediately seen by reading the adjacent number on A.
+
+Of course, subtraction can be quite as readily performed. Thus, to subtract 4 from 7, we require to deduct from 0·7 on the A scale, a length 0·4 on B. We do this by placing 4 on B under 7 on A, when over 0 on B we find 3, on A. It is here evident that the difference of any pair of coinciding numbers on the scales is constantly equal to 3.
+
+
+Fig. 2.
+
+An important modification results if the slide-scale B is inverted as in Fig. 2. In this case, to find the sum of 4 and 3 we require to place the 4 of the A scale to 3 on the B scale, and the result is read on A over 0 on B. Here it will be noted, the sum of any pair of coinciding numbers on the scales is constant and equal to 7. This case, therefore, resembles that of the immediately preceding one, except that the sum, instead of the difference, of any pair of coinciding numbers is constant.
+
+To find the difference of two factors, the converse operation is necessary. Thus, to subtract 4 from 7, 0 on B is placed opposite 7 on A, and over 4 on B is found 3 on A.
+
+From these examples it will be seen that with the slide inverted the methods of operation are the reverse of those used when the slide is in its normal position.
+
+It will be understood that although we have only considered the primary divisions of the scales, the remarks apply equally to any subdivisions into which the primary spaces of the scales might be divided. Further, we note that the length of scale taken to represent a unit is quite arbitrary.
+
+THE PRIMITIVE SLIDE RULE.
+The application of the foregoing principles to the slide rule can be shown most conveniently by describing the construction of a simple form of slide rule:—Take a strip of card about 11 in. long and 2 in. wide; draw a line down the centre of its width, and 11mark off two points, 10 in. apart. Draw cross lines at these points and figure them 1 and 10 on each side, as in Fig. 3. Next mark off lengths of 3·01, 4·77, 6·02, 6·99, 7·78, 8·45, 9·03 and 9·54 inches, from the line marked 1. Draw cross lines as before, and figure these lines, 2, 3, 4, 5, 6, 7, 8 and 9. To fill in the intermediate divisions of the scale, take the logs, of 1·1, 1·2, 1·3, etc. (from a table), multiply each by 10, and thus obtain the distances from 1, at which the several subdivisions are to be placed. Mark these 1·2, 1·3, 1·4, etc., and complete the scale, making the interpolated division marks shorter to facilitate reading, as with an ordinary measuring rule. Cutting the card cleanly down the centre line, we have the essentials of the slide rule.
+
+
+Fig. 3.
+
+The fundamental principle of the slide rule is now evident:—Each scale is graduated in such a manner that the distance of any number from 1 is proportional to the logarithm of that number.
+
+
+Fig. 4.
+
+“We know that to find the product of 2 × 3 by logarithms, we add 0·301, or log. 2, to 0·477, the log. of 3, obtaining 0·778, or log. 6. With our primitive slide rule we place 1 on the lower scale to 3·01 in. (which we have marked 2) on the upper scale (Fig. 4). Then over 4·77 in. on the lower scale (which we marked 3), we have 7·78 in. (which we marked 6) on the upper scale. Conversely, to divide 6 by 3, we place 3 on the lower scale in agreement with 6 on the upper, and over 1 on the lower scale read 2 on the upper scale. This method of adding and subtracting scale lengths will be seen to be identical with that used in the simple case shown in Fig. 1.
+
+12
+THE MODERN SLIDE RULE.
+The modern form of slide rule, variously styled the Gravêt, the Tavernier-Gravêt, and the Mannheim rule, is frequently made of boxwood, but all the leading instrument makers now supply rules made of boxwood or mahogany, and faced with celluloid, the white surface of which brings out the graduations much more distinctly than lines engraved on a boxwood surface. The celluloid facings should not be polished, as a dull surface is much less fatiguing to the eyes. The most generally used, and on the whole the most convenient size of rule, is about 10½in. long, 1¼in. wide, and about ⅜in. thick; but 5 in., 8 in., 15 in., 20 in., 24 in. and 40 in. rules are also made. In the centre of the stock of the rule a movable slip is fitted, which constitutes the slide, and corresponds to the lower of the two rules of our rudimentary examples.
+
+
+Fig. 5.
+
+From Fig. 5, which is a representation of the face of a Gravêt or Mannheim slide rule, it will be seen that four series of logarithmic graduations or scale-lines are employed, the upper and lower being engraved on the stock or body of the rule, while the other two are engraved upon the slide. The two upper sets of graduations are exactly alike in every particular, and the lower sets are also similar. It is usual to identify the two upper scale-lines by the letters A and B, and the two lower by the letters C and D, as indicated in the figure at the left-hand extremities of the scales.
+
+Referring to the scales C and D, these will each be seen to be a development of the elementary scales of Fig. 3, but 13in this case each principal space is subdivided, more or less minutely. The principle, however, is exactly the same, so that by moving the slide (carrying scale C), multiplication and division can be mechanically performed in the manner described.
+
+The upper scale-line A consists of two exactly similar scales, placed end to end, the first lying between Il and Ic, and the second between Ic and Ir. The first of these scales will be designated the left-hand A scale, and the second the right-hand A scale.
