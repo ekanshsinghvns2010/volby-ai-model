@@ -4,6 +4,10 @@ import torch.nn.functional as F
 from train import GPTLanguageModel
 
 
+# ============================================================
+# SETTINGS
+# ============================================================
+
 MODEL_PATH = "checkpoints/volby-0.2-best.pth"
 
 DEVICE = (
@@ -13,32 +17,43 @@ DEVICE = (
 )
 
 MAX_NEW_TOKENS = 300
+
 TEMPERATURE = 0.8
 
 
-# =========================
-# Load checkpoint
-# =========================
+# ============================================================
+# LOAD CHECKPOINT
+# ============================================================
+
+print("Loading model...")
 
 checkpoint = torch.load(
     MODEL_PATH,
-    map_location=DEVICE
+    map_location=DEVICE,
+    weights_only=False
 )
 
 stoi = checkpoint["stoi"]
+
 itos = checkpoint["itos"]
+
+vocab_size = checkpoint["vocab_size"]
 
 BLOCK_SIZE = checkpoint["block_size"]
 
 
-# =========================
-# Create model
-# =========================
+# ============================================================
+# CREATE MODEL
+# ============================================================
 
-model = GPTLanguageModel()
+model = GPTLanguageModel(
+    vocab_size
+)
 
 model.load_state_dict(
-    checkpoint["model_state_dict"]
+    checkpoint[
+        "model_state_dict"
+    ]
 )
 
 model = model.to(
@@ -48,11 +63,18 @@ model = model.to(
 model.eval()
 
 
-# =========================
-# Encode
-# =========================
+print(
+    "Model loaded successfully."
+)
 
-def encode(text):
+
+# ============================================================
+# ENCODE
+# ============================================================
+
+def encode(
+    text
+):
 
     return [
         stoi[c]
@@ -61,11 +83,13 @@ def encode(text):
     ]
 
 
-# =========================
-# Decode
-# =========================
+# ============================================================
+# DECODE
+# ============================================================
 
-def decode(ids):
+def decode(
+    ids
+):
 
     return "".join(
         itos[i]
@@ -73,12 +97,14 @@ def decode(ids):
     )
 
 
-# =========================
-# Generate
-# =========================
+# ============================================================
+# GENERATE
+# ============================================================
 
 @torch.no_grad()
-def generate(prompt):
+def generate(
+    prompt
+):
 
     prompt_ids = encode(
         prompt
@@ -88,69 +114,122 @@ def generate(prompt):
 
         prompt_ids = [0]
 
+
     x = torch.tensor(
+
         [prompt_ids],
+
         dtype=torch.long,
+
         device=DEVICE
+
     )
 
-    prompt_length = x.shape[1]
+
+    prompt_length = (
+        x.shape[1]
+    )
+
 
     for _ in range(
         MAX_NEW_TOKENS
     ):
 
-        x_cond = x[
-            :,
-            -BLOCK_SIZE:
-        ]
+        x_cond = (
+
+            x[
+                :,
+                -BLOCK_SIZE:
+            ]
+
+        )
+
 
         logits, _ = model(
             x_cond
         )
 
-        logits = logits[
-            :,
-            -1,
-            :
-        ]
 
         logits = (
+
+            logits[
+                :,
+                -1,
+                :
+            ]
+
+        )
+
+
+        logits = (
+
             logits
             / TEMPERATURE
+
         )
 
-        probabilities = F.softmax(
-            logits,
-            dim=-1
+
+        probabilities = (
+
+            F.softmax(
+
+                logits,
+
+                dim=-1
+
+            )
+
         )
 
-        next_token = torch.multinomial(
-            probabilities,
-            1
+
+        next_token = (
+
+            torch.multinomial(
+
+                probabilities,
+
+                num_samples=1
+
+            )
+
         )
+
 
         x = torch.cat(
+
             [
+
                 x,
+
                 next_token
+
             ],
+
             dim=1
+
         )
 
-    generated_ids = x[
-        0,
-        prompt_length:
-    ].tolist()
+
+    generated_ids = (
+
+        x[
+            0,
+            prompt_length:
+        ]
+
+        .tolist()
+
+    )
+
 
     return decode(
         generated_ids
     )
 
 
-# =========================
-# Start
-# =========================
+# ============================================================
+# CHAT
+# ============================================================
 
 print(
     "================================"
@@ -193,9 +272,13 @@ while True:
         "\nYou: "
     )
 
+
     if prompt.lower() in [
+
         "exit",
+
         "quit"
+
     ]:
 
         print(
@@ -204,9 +287,11 @@ while True:
 
         break
 
+
     response = generate(
         prompt
     )
+
 
     print(
         "\nVolby:",
