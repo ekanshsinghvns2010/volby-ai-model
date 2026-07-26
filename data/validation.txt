@@ -1,0 +1,13 @@
+Software (SW) consists of computer programs that instruct the execution of a computer.[1] Software also includes design documents and specifications.
+
+
+Software written in the JavaScript language
+The history of software is closely tied to the development of digital computers in the mid-20th century. Early programs were written in the machine language specific to the hardware. The introduction of high-level programming languages in 1958 allowed for more human-readable instructions, making software development easier and more portable across different computer architectures. Software in a programming language is run through a compiler or interpreter to execute on the architecture's hardware. Over time, software has become complex, owing to developments in networking, operating systems, and databases.
+
+Software can generally be categorized into two main types:
+
+operating systems, which manage hardware resources and provide services for applications
+application software, which performs specific tasks for users
+The rise of cloud computing has introduced the new software delivery model software as a service (SaaS). In SaaS, applications are hosted by a provider and accessed over the Internet.
+
+The process of developing software involves several stages. The stages include software design, programming, testing, release, and maintenance. Software quality assurance and security are critical aspects of software development, as bugs and security vulnerabilities can lead to system failures and security breaches. Additionally, legal issues such as software licenses and intellectual property rights play a significant role in the distribution of software products.
