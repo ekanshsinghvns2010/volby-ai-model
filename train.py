@@ -1,6 +1,5 @@
 """
-Volby-0.2
-Raw Text Pretraining Pipeline
+Volby-0.2 Training
 Developed by Volbasty Studios
 """
 
@@ -19,6 +18,7 @@ PRETRAIN_PATH = "data/pretrain.txt"
 VALIDATION_PATH = "data/validation.txt"
 
 CHECKPOINT_DIR = "checkpoints"
+
 BEST_MODEL_PATH = os.path.join(
     CHECKPOINT_DIR,
     "volby-0.2-best.pth"
@@ -63,203 +63,11 @@ os.makedirs(
 )
 
 
-print("=" * 40)
-print("       VOLBY-0.2 PRETRAINING")
-print("       Volbasty Studios")
-print("=" * 40)
-
-print(
-    "Device:",
-    DEVICE
-)
-
-
-# ============================================================
-# LOAD DATA
-# ============================================================
-
-with open(
-    PRETRAIN_PATH,
-    "r",
-    encoding="utf-8"
-) as f:
-
-    train_text = f.read()
-
-
-with open(
-    VALIDATION_PATH,
-    "r",
-    encoding="utf-8"
-) as f:
-
-    val_text = f.read()
-
-
-print(
-    "Training characters:",
-    len(train_text)
-)
-
-print(
-    "Validation characters:",
-    len(val_text)
-)
-
-
-# ============================================================
-# CREATE VOCABULARY
-# ============================================================
-
-chars = sorted(
-    list(
-        set(
-            train_text
-            + val_text
-        )
-    )
-)
-
-vocab_size = len(
-    chars
-)
-
-print(
-    "Vocabulary size:",
-    vocab_size
-)
-
-
-stoi = {
-    ch: i
-    for i, ch in enumerate(chars)
-}
-
-itos = {
-    i: ch
-    for i, ch in enumerate(chars)
-}
-
-
-def encode(text):
-
-    return [
-        stoi[c]
-        for c in text
-    ]
-
-
-def decode(ids):
-
-    return "".join(
-        itos[i]
-        for i in ids
-    )
-
-
-# ============================================================
-# TOKENIZE DATA
-# ============================================================
-
-train_data = torch.tensor(
-    encode(train_text),
-    dtype=torch.long
-)
-
-val_data = torch.tensor(
-    encode(val_text),
-    dtype=torch.long
-)
-
-
-print(
-    "Training tokens:",
-    len(train_data)
-)
-
-print(
-    "Validation tokens:",
-    len(val_data)
-)
-
-
-# ============================================================
-# CHECK DATA SIZE
-# ============================================================
-
-if len(train_data) <= BLOCK_SIZE:
-
-    raise ValueError(
-        "Training data is too small "
-        "for the selected BLOCK_SIZE."
-    )
-
-
-if len(val_data) <= BLOCK_SIZE:
-
-    raise ValueError(
-        "Validation data is too small "
-        "for the selected BLOCK_SIZE."
-    )
-
-
-# ============================================================
-# BATCH CREATION
-# ============================================================
-
-def get_batch(
-    split
-):
-
-    data = (
-        train_data
-        if split == "train"
-        else val_data
-    )
-
-    ix = torch.randint(
-        0,
-        len(data)
-        - BLOCK_SIZE
-        - 1,
-        (
-            BATCH_SIZE,
-        )
-    )
-
-    x = torch.stack(
-        [
-            data[
-                i:
-                i + BLOCK_SIZE
-            ]
-            for i in ix
-        ]
-    )
-
-    y = torch.stack(
-        [
-            data[
-                i + 1:
-                i + BLOCK_SIZE + 1
-            ]
-            for i in ix
-        ]
-    )
-
-    return (
-        x.to(DEVICE),
-        y.to(DEVICE)
-    )
-
-
 # ============================================================
 # ATTENTION HEAD
 # ============================================================
 
-class Head(
-    nn.Module
-):
+class Head(nn.Module):
 
     def __init__(
         self,
@@ -330,9 +138,7 @@ class Head(
                 :T,
                 :T
             ] == 0,
-            float(
-                "-inf"
-            )
+            float("-inf")
         )
 
         wei = F.softmax(
@@ -409,7 +215,7 @@ class MultiHeadAttention(
 
 
 # ============================================================
-# FEED FORWARD NETWORK
+# FEED FORWARD
 # ============================================================
 
 class FeedForward(
@@ -514,7 +320,7 @@ class Block(
 
 
 # ============================================================
-# GPT MODEL
+# GPT LANGUAGE MODEL
 # ============================================================
 
 class GPTLanguageModel(
@@ -522,7 +328,8 @@ class GPTLanguageModel(
 ):
 
     def __init__(
-        self
+        self,
+        vocab_size
     ):
 
         super().__init__()
@@ -631,6 +438,7 @@ class GPTLanguageModel(
         )
 
 
+    @torch.no_grad()
     def generate(
         self,
         idx,
@@ -680,378 +488,608 @@ class GPTLanguageModel(
 
 
 # ============================================================
-# LOSS EVALUATION
+# MAIN TRAINING FUNCTION
 # ============================================================
 
-@torch.no_grad()
-def estimate_loss():
+def main():
 
-    model.eval()
+    print("=" * 40)
 
-    results = {}
+    print(
+        "       VOLBY-0.2 PRETRAINING"
+    )
 
-    for split in [
-        "train",
-        "val"
-    ]:
+    print(
+        "       Volbasty Studios"
+    )
 
-        losses = torch.zeros(
-            EVAL_ITERS
+    print("=" * 40)
+
+    print(
+        "Device:",
+        DEVICE
+    )
+
+
+    # ========================================================
+    # LOAD DATA
+    # ========================================================
+
+    with open(
+        PRETRAIN_PATH,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        train_text = f.read()
+
+
+    with open(
+        VALIDATION_PATH,
+        "r",
+        encoding="utf-8"
+    ) as f:
+
+        val_text = f.read()
+
+
+    print(
+        "Training characters:",
+        len(train_text)
+    )
+
+    print(
+        "Validation characters:",
+        len(val_text)
+    )
+
+
+    # ========================================================
+    # VOCABULARY
+    # ========================================================
+
+    chars = sorted(
+        list(
+            set(
+                train_text
+                + val_text
+            )
         )
+    )
 
-        for k in range(
-            EVAL_ITERS
-        ):
-
-            X, Y = get_batch(
-                split
-            )
-
-            _, loss = model(
-                X,
-                Y
-            )
-
-            losses[k] = (
-                loss.item()
-            )
-
-        results[split] = (
-            losses.mean().item()
-        )
-
-    model.train()
-
-    return results
+    vocab_size = len(
+        chars
+    )
 
 
-# ============================================================
-# CREATE MODEL
-# ============================================================
-
-model = GPTLanguageModel()
-
-model = model.to(
-    DEVICE
-)
+    print(
+        "Vocabulary size:",
+        vocab_size
+    )
 
 
-parameter_count = sum(
-    p.numel()
-    for p in model.parameters()
-)
+    stoi = {
+        ch: i
+        for i, ch in enumerate(chars)
+    }
+
+    itos = {
+        i: ch
+        for i, ch in enumerate(chars)
+    }
 
 
-print(
-    "Model parameters:",
-    parameter_count
-)
+    # ========================================================
+    # ENCODE
+    # ========================================================
 
-
-# ============================================================
-# OPTIMIZER
-# ============================================================
-
-optimizer = torch.optim.AdamW(
-
-    model.parameters(),
-
-    lr=LEARNING_RATE,
-
-    weight_decay=0.01
-)
-
-
-# ============================================================
-# LEARNING RATE SCHEDULER
-# ============================================================
-
-scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
-
-    optimizer,
-
-    T_max=MAX_ITERS
-)
-
-
-# ============================================================
-# TRAINING VARIABLES
-# ============================================================
-
-best_val_loss = float(
-    "inf"
-)
-
-patience_counter = 0
-
-
-print(
-    "\nStarting training..."
-)
-
-
-# ============================================================
-# TRAINING LOOP
-# ============================================================
-
-for iteration in range(
-    MAX_ITERS
-):
-
-    if (
-        iteration
-        % EVAL_INTERVAL
-        == 0
+    def encode(
+        text
     ):
 
-        losses = estimate_loss()
+        return [
+            stoi[c]
+            for c in text
+        ]
 
-        train_loss = (
-            losses["train"]
+
+    # ========================================================
+    # DATA
+    # ========================================================
+
+    train_data = torch.tensor(
+        encode(
+            train_text
+        ),
+        dtype=torch.long
+    )
+
+    val_data = torch.tensor(
+        encode(
+            val_text
+        ),
+        dtype=torch.long
+    )
+
+
+    print(
+        "Training tokens:",
+        len(train_data)
+    )
+
+    print(
+        "Validation tokens:",
+        len(val_data)
+    )
+
+
+    if len(train_data) <= BLOCK_SIZE:
+
+        raise ValueError(
+            "Training data is too small."
         )
 
-        val_loss = (
-            losses["val"]
+
+    if len(val_data) <= BLOCK_SIZE:
+
+        raise ValueError(
+            "Validation data is too small."
         )
 
-        perplexity = math.exp(
-            min(
-                val_loss,
-                20
+
+    # ========================================================
+    # BATCH
+    # ========================================================
+
+    def get_batch(
+        split
+    ):
+
+        data = (
+            train_data
+            if split == "train"
+            else val_data
+        )
+
+        ix = torch.randint(
+            0,
+            len(data)
+            - BLOCK_SIZE
+            - 1,
+            (
+                BATCH_SIZE,
             )
         )
 
-        print(
-            "\n"
-            + "=" * 40
+        x = torch.stack(
+            [
+                data[
+                    i:
+                    i + BLOCK_SIZE
+                ]
+                for i in ix
+            ]
         )
 
-        print(
-            f"Step {iteration}"
+        y = torch.stack(
+            [
+                data[
+                    i + 1:
+                    i + BLOCK_SIZE + 1
+                ]
+                for i in ix
+            ]
         )
 
-        print(
-            f"Train Loss: "
-            f"{train_loss:.4f}"
-        )
-
-        print(
-            f"Validation Loss: "
-            f"{val_loss:.4f}"
-        )
-
-        print(
-            f"Perplexity: "
-            f"{perplexity:.4f}"
-        )
-
-        print(
-            "=" * 40
+        return (
+            x.to(DEVICE),
+            y.to(DEVICE)
         )
 
 
-        # ====================================================
-        # SAVE BEST MODEL
-        # ====================================================
+    # ========================================================
+    # MODEL
+    # ========================================================
 
-        if val_loss < best_val_loss:
+    model = GPTLanguageModel(
+        vocab_size
+    )
 
-            best_val_loss = (
-                val_loss
+    model = model.to(
+        DEVICE
+    )
+
+
+    parameter_count = sum(
+        p.numel()
+        for p in model.parameters()
+    )
+
+
+    print(
+        "Model parameters:",
+        parameter_count
+    )
+
+
+    # ========================================================
+    # OPTIMIZER
+    # ========================================================
+
+    optimizer = torch.optim.AdamW(
+
+        model.parameters(),
+
+        lr=LEARNING_RATE,
+
+        weight_decay=0.01
+
+    )
+
+
+    scheduler = (
+        torch.optim.lr_scheduler.CosineAnnealingLR(
+
+            optimizer,
+
+            T_max=MAX_ITERS
+
+        )
+    )
+
+
+    # ========================================================
+    # LOSS EVALUATION
+    # ========================================================
+
+    @torch.no_grad()
+    def estimate_loss():
+
+        model.eval()
+
+        results = {}
+
+        for split in [
+            "train",
+            "val"
+        ]:
+
+            losses = torch.zeros(
+                EVAL_ITERS
             )
 
-            patience_counter = 0
+            for k in range(
+                EVAL_ITERS
+            ):
 
-            torch.save(
+                X, Y = get_batch(
+                    split
+                )
 
-                {
-                    "model_state_dict":
-                        model.state_dict(),
+                _, loss = model(
+                    X,
+                    Y
+                )
 
-                    "stoi":
-                        stoi,
+                losses[k] = (
+                    loss.item()
+                )
 
-                    "itos":
-                        itos,
-
-                    "vocab_size":
-                        vocab_size,
-
-                    "block_size":
-                        BLOCK_SIZE,
-
-                    "n_embd":
-                        N_EMBD,
-
-                    "n_head":
-                        N_HEAD,
-
-                    "n_layer":
-                        N_LAYER
-
-                },
-
-                BEST_MODEL_PATH
-
+            results[split] = (
+                losses.mean().item()
             )
 
-            print(
-                "New best model saved."
-            )
+        model.train()
 
-        else:
-
-            patience_counter += 1
-
-            print(
-                f"No improvement."
-            )
-
-            print(
-                f"Patience: "
-                f"{patience_counter}/"
-                f"{PATIENCE}"
-            )
+        return results
 
 
-        # ====================================================
-        # EARLY STOPPING
-        # ====================================================
+    # ========================================================
+    # TRAINING
+    # ========================================================
+
+    best_val_loss = float(
+        "inf"
+    )
+
+    patience_counter = 0
+
+
+    print(
+        "\nStarting training..."
+    )
+
+
+    for iteration in range(
+        MAX_ITERS
+    ):
 
         if (
-            patience_counter
-            >= PATIENCE
+            iteration
+            % EVAL_INTERVAL
+            == 0
         ):
 
-            print(
-                "\nEarly stopping."
+            losses = estimate_loss()
+
+            train_loss = (
+                losses["train"]
             )
 
-            break
+            val_loss = (
+                losses["val"]
+            )
+
+            perplexity = math.exp(
+                min(
+                    val_loss,
+                    20
+                )
+            )
+
+
+            print(
+                "\n"
+                + "=" * 40
+            )
+
+            print(
+                f"Step {iteration}"
+            )
+
+            print(
+                f"Train Loss: "
+                f"{train_loss:.4f}"
+            )
+
+            print(
+                f"Validation Loss: "
+                f"{val_loss:.4f}"
+            )
+
+            print(
+                f"Perplexity: "
+                f"{perplexity:.4f}"
+            )
+
+            print(
+                "=" * 40
+            )
+
+
+            # =================================================
+            # BEST MODEL
+            # =================================================
+
+            if val_loss < best_val_loss:
+
+                best_val_loss = (
+                    val_loss
+                )
+
+                patience_counter = 0
+
+
+                torch.save(
+
+                    {
+
+                        "model_state_dict":
+                            model.state_dict(),
+
+                        "stoi":
+                            stoi,
+
+                        "itos":
+                            itos,
+
+                        "vocab_size":
+                            vocab_size,
+
+                        "block_size":
+                            BLOCK_SIZE,
+
+                        "n_embd":
+                            N_EMBD,
+
+                        "n_head":
+                            N_HEAD,
+
+                        "n_layer":
+                            N_LAYER,
+
+                        "dropout":
+                            DROPOUT
+
+                    },
+
+                    BEST_MODEL_PATH
+
+                )
+
+
+                print(
+                    "New best model saved."
+                )
+
+
+            else:
+
+                patience_counter += 1
+
+
+                print(
+                    "No improvement."
+                )
+
+                print(
+                    f"Patience: "
+                    f"{patience_counter}/"
+                    f"{PATIENCE}"
+                )
+
+
+            # =================================================
+            # EARLY STOPPING
+            # =================================================
+
+            if (
+                patience_counter
+                >= PATIENCE
+            ):
+
+                print(
+                    "\nEarly stopping."
+                )
+
+                break
+
+
+        # ====================================================
+        # TRAIN STEP
+        # ====================================================
+
+        X, Y = get_batch(
+            "train"
+        )
+
+        logits, loss = model(
+            X,
+            Y
+        )
+
+
+        optimizer.zero_grad(
+            set_to_none=True
+        )
+
+
+        loss.backward()
+
+
+        torch.nn.utils.clip_grad_norm_(
+            model.parameters(),
+            GRAD_CLIP
+        )
+
+
+        optimizer.step()
+
+        scheduler.step()
 
 
     # ========================================================
-    # TRAIN STEP
+    # LOAD BEST MODEL
     # ========================================================
 
-    X, Y = get_batch(
-        "train"
+    print(
+        "\nLoading best model..."
     )
 
-    logits, loss = model(
-        X,
-        Y
+
+    best_checkpoint = torch.load(
+
+        BEST_MODEL_PATH,
+
+        map_location=DEVICE,
+
+        weights_only=False
+
     )
 
-    optimizer.zero_grad(
-        set_to_none=True
-    )
 
-    loss.backward()
+    model.load_state_dict(
+
+        best_checkpoint[
+            "model_state_dict"
+        ]
+
+    )
 
 
     # ========================================================
-    # GRADIENT CLIPPING
+    # FINAL MODEL
     # ========================================================
 
-    torch.nn.utils.clip_grad_norm_(
-        model.parameters(),
-        GRAD_CLIP
+    torch.save(
+
+        {
+
+            "model_state_dict":
+                model.state_dict(),
+
+            "stoi":
+                stoi,
+
+            "itos":
+                itos,
+
+            "vocab_size":
+                vocab_size,
+
+            "block_size":
+                BLOCK_SIZE,
+
+            "n_embd":
+                N_EMBD,
+
+            "n_head":
+                N_HEAD,
+
+            "n_layer":
+                N_LAYER,
+
+            "dropout":
+                DROPOUT
+
+        },
+
+        FINAL_MODEL_PATH
+
     )
 
 
-    optimizer.step()
+    print(
+        "\n"
+        + "=" * 40
+    )
 
-    scheduler.step()
+    print(
+        "       VOLBY-0.2 COMPLETE"
+    )
+
+    print(
+        "       Volbasty Studios"
+    )
+
+    print(
+        "=" * 40
+    )
+
+    print(
+        "Best validation loss:",
+        best_val_loss
+    )
+
+    print(
+        "Final model:",
+        FINAL_MODEL_PATH
+    )
+
+    print(
+        "Best model:",
+        BEST_MODEL_PATH
+    )
 
 
 # ============================================================
-# LOAD BEST MODEL
+# IMPORTANT:
+# TRAINING ONLY RUNS WHEN train.py IS EXECUTED DIRECTLY.
+#
+# If chat.py imports GPTLanguageModel from train.py,
+# the training process will NOT start.
 # ============================================================
 
-print(
-    "\nLoading best model..."
-)
+if __name__ == "__main__":
 
-best_checkpoint = torch.load(
-    BEST_MODEL_PATH,
-    map_location=DEVICE
-)
-
-model.load_state_dict(
-    best_checkpoint[
-        "model_state_dict"
-    ]
-)
-
-
-# ============================================================
-# SAVE FINAL MODEL
-# ============================================================
-
-torch.save(
-
-    {
-
-        "model_state_dict":
-            model.state_dict(),
-
-        "stoi":
-            stoi,
-
-        "itos":
-            itos,
-
-        "vocab_size":
-            vocab_size,
-
-        "block_size":
-            BLOCK_SIZE,
-
-        "n_embd":
-            N_EMBD,
-
-        "n_head":
-            N_HEAD,
-
-        "n_layer":
-            N_LAYER
-
-    },
-
-    FINAL_MODEL_PATH
-
-)
-
-
-print(
-    "\n"
-    + "=" * 40
-)
-
-print(
-    "       VOLBY-0.2 COMPLETE"
-)
-
-print(
-    "       Volbasty Studios"
-)
-
-print(
-    "=" * 40
-)
-
-print(
-    "Best validation loss:",
-    best_val_loss
-)
-
-print(
-    "Final model:",
-    FINAL_MODEL_PATH
-)
-
-print(
-    "Best model:",
-    BEST_MODEL_PATH
-)
+    main()
