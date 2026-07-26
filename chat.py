@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from train import GPTLanguageModel
 
 
-MODEL_PATH = "checkpoints/volby-0.1.pth"
+MODEL_PATH = "checkpoints/volby-0.2-best.pth"
 
 DEVICE = (
     "cuda"
@@ -13,7 +13,6 @@ DEVICE = (
 )
 
 MAX_NEW_TOKENS = 300
-
 TEMPERATURE = 0.8
 
 
@@ -39,9 +38,7 @@ BLOCK_SIZE = checkpoint["block_size"]
 model = GPTLanguageModel()
 
 model.load_state_dict(
-    checkpoint[
-        "model_state_dict"
-    ]
+    checkpoint["model_state_dict"]
 )
 
 model = model.to(
@@ -83,21 +80,21 @@ def decode(ids):
 @torch.no_grad()
 def generate(prompt):
 
-    ids = encode(
+    prompt_ids = encode(
         prompt
     )
 
-    if not ids:
+    if not prompt_ids:
 
-        ids = [
-            0
-        ]
+        prompt_ids = [0]
 
     x = torch.tensor(
-        [ids],
+        [prompt_ids],
         dtype=torch.long,
         device=DEVICE
     )
+
+    prompt_length = x.shape[1]
 
     for _ in range(
         MAX_NEW_TOKENS
@@ -141,13 +138,18 @@ def generate(prompt):
             dim=1
         )
 
+    generated_ids = x[
+        0,
+        prompt_length:
+    ].tolist()
+
     return decode(
-        x[0].tolist()
+        generated_ids
     )
 
 
 # =========================
-# Chat
+# Start
 # =========================
 
 print(
@@ -155,7 +157,7 @@ print(
 )
 
 print(
-    "          VOLBY-0.1"
+    "          VOLBY-0.2"
 )
 
 print(
@@ -169,6 +171,11 @@ print(
 print(
     "Device:",
     DEVICE
+)
+
+print(
+    "Model:",
+    MODEL_PATH
 )
 
 print(
@@ -197,9 +204,11 @@ while True:
 
         break
 
+    response = generate(
+        prompt
+    )
+
     print(
         "\nVolby:",
-        generate(
-            prompt
-        )
+        response
     )
