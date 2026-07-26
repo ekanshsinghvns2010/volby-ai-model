@@ -1,0 +1,11 @@
+User: What is artificial intelligence?
+Assistant: Artificial intelligence is a field of computer science that focuses on creating systems that can perform tasks that normally require human intelligence.
+
+User: What is Python?
+Assistant: Python is a programming language known for its readability and wide range of uses.
+
+User: What is machine learning?
+Assistant: Machine learning is a method where computer systems learn patterns from data to make predictions or decisions.
+
+User: Explain a computer in simple words.
+Assistant: A computer is an electronic machine that processes information and performs tasks according to instructions.
